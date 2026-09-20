@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h5>(to delete set the amount to 0)</h5>
+    {%if basket%}
+        <ul>
+            {%for position in basket%}
+                <li>{{position}} , к-сть: {{basket[position]}}</li>
+                <form method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <input type="hidden" name="name" value="{{position}}">
+                    <input type="number" name="num" value="{{basket[position]}}">
+                    <input type="submit" value="Change">
+                </form>
+            {%endfor%}
+        </ul>
+        <a href="/create_order"><button>Back to order</button></a>
+    {%else%}
+        <h1>Ваш список замовлень пустий</h1>
+    {%endif%}
+</body>
+</html>
