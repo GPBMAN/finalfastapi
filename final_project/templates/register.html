@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Google Font: Plus Jakarta Sans (similar to Google Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121316;           /* Light black (background) */
+            --card-bg: #1e2025;            /* Lighter black (card container) */
+            --input-bg: #16181d;           /* Input background */
+            --text-main: #e2e8f0;          /* Main light text for contrast */
+            --text-muted: #94a3b8;         /* Muted slate text */
+            --border-color: #2e3440;       /* Dark border color */
+            --accent-blue: #5c8ca8;        /* Toned-down cyan/blue */
+            --accent-hover: #4b7893;       /* Hover state cyan/blue */
+            --error-bg: #3d1c1c;
+            --error-text: #f87171;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .register-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .error-message {
+            background-color: var(--error-bg);
+            color: var(--error-text);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(248, 113, 113, 0.2);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            background-color: #1a1d24;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(92, 140, 168, 0.25);
+        }
+
+        button[type="submit"] {
+            margin-top: 0.5rem;
+            padding: 0.8rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--accent-hover);
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.99);
+        }
+
+        .footer-text {
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .footer-text a {
+            color: #5c9bc4;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-text a:hover {
+            color: #7bb5dc;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="register-container">
+        <h2>Create Account</h2>
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <form action="/register" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="new-password">
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p class="footer-text">
+            Already have an account? <a href="/login">Log In</a>
+        </p>
+    </main>
+
+</body>
+</html>

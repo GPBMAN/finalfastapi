@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ problem.title if problem else 'Problem Detail' }}</title>
+    <!-- Google Font: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121316;           /* Light black background */
+            --card-bg: #1e2025;            /* Container / Card background */
+            --input-bg: #16181d;           /* Inner box background */
+            --text-main: #e2e8f0;          /* Main light text */
+            --text-muted: #94a3b8;         /* Muted slate text */
+            --border-color: #2e3440;       /* Dark border color */
+            --accent-blue: #5c8ca8;        /* Toned-down cyan/blue */
+            --accent-hover: #4b7893;       /* Hover state cyan/blue */
+            --message-bg: rgba(92, 140, 168, 0.15);
+            --message-text: #5c8ca8;
+            --message-border: rgba(92, 140, 168, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .problem-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 520px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-actions {
+            margin-bottom: 1.25rem;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.4rem 0.75rem;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            color: var(--text-main);
+            background-color: #24272e;
+            border-color: var(--accent-blue);
+        }
+
+        .problem-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            word-break: break-word;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-height: 320px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+        }
+
+        button[type="submit"] {
+            margin-top: 0.5rem;
+            padding: 0.8rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--accent-hover);
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.99);
+        }
+
+        .status-message {
+            margin-top: 1.25rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--message-bg);
+            color: var(--message-text);
+            border: 1px solid var(--message-border);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            .problem-container {
+                padding: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="problem-container">
+        <div class="header-actions">
+            <a href="/new_problems" class="btn-back">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to List
+            </a>
+        </div>
+
+        <form method="post" class="problem-form">
+            <h4>{{ problem.title }}</h4>
+            <input type="hidden" name="id" value="{{ problem.id }}">
+            
+            <p>{{ problem.description }}</p>
+
+            {% if problem.image_url %}
+                <img src="static/{{ problem.image_url }}" alt="Problem image" class="image-preview">
+            {% endif %}
+
+            <button type="submit">Взяти в роботу</button>
+        </form>
+
+        {% if message %}
+            <h5 class="status-message">{{ message }}</h5>
+        {% endif %}
+    </main>
+
+</body>
+</html>

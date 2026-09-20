@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Upload</title>
+    <!-- Google Font: Plus Jakarta Sans (similar to Google Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121316;           /* Light black (background) */
+            --card-bg: #1e2025;            /* Lighter black (card container) */
+            --input-bg: #16181d;           /* Input background */
+            --text-main: #e2e8f0;          /* Main light text for contrast */
+            --text-muted: #94a3b8;         /* Muted slate text */
+            --border-color: #2e3440;       /* Dark border color */
+            --accent-blue: #5c8ca8;        /* Toned-down cyan/blue */
+            --accent-hover: #4b7893;       /* Hover state cyan/blue */
+            --error-bg: #3d1c1c;
+            --error-text: #f87171;
+            --error-border: rgba(248, 113, 113, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .upload-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 440px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .error-message {
+            background-color: var(--error-bg);
+            color: var(--error-text);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--error-border);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]::placeholder {
+            color: #64748b;
+        }
+
+        input[type="text"]:focus {
+            background-color: #1a1d24;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(92, 140, 168, 0.25);
+        }
+
+        /* Custom file input styling */
+        input[type="file"] {
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        input[type="file"]::file-selector-button {
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.5rem 0.9rem;
+            margin-right: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #232730;
+            border-color: #3b4252;
+        }
+
+        button[type="submit"] {
+            margin-top: 0.5rem;
+            padding: 0.8rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--accent-hover);
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.99);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="upload-container">
+        <h2>Problem Upload</h2>
+
+
+        <form action="/add_problem" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" placeholder="Brief summary" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" placeholder="Provide more details" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Photo</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+
+</body>
+</html>

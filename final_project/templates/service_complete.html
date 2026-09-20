@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Талон обслуговування</title>
+    <!-- Google Font: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121316;           /* Background */
+            --card-bg: #1e2025;            /* Container / Card background */
+            --input-bg: #16181d;           /* Textarea background */
+            --text-main: #e2e8f0;          /* Main light text */
+            --text-muted: #94a3b8;         /* Muted slate text */
+            --border-color: #2e3440;       /* Dark border color */
+            --accent-blue: #5c8ca8;        /* Toned-down cyan/blue */
+            --accent-hover: #4b7893;       /* Hover state cyan/blue */
+            --message-bg: rgba(92, 140, 168, 0.15);
+            --message-text: #5c8ca8;
+            --message-border: rgba(92, 140, 168, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .form-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 520px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-header h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .record-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 110px;
+            padding: 0.85rem 1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            resize: vertical;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        textarea:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(92, 140, 168, 0.2);
+        }
+
+        button[type="submit"] {
+            margin-top: 0.5rem;
+            padding: 0.8rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--accent-hover);
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.99);
+        }
+
+        .status-message {
+            margin-top: 1.25rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--message-bg);
+            color: var(--message-text);
+            border: 1px solid var(--message-border);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            .form-container {
+                padding: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="form-container">
+        <div class="form-header">
+            <h2>Талон обслуговування</h2>
+        </div>
+
+        <form method="post" class="record-form">
+            <div class="input-group">
+                <textarea name="work_done" placeholder="Виконаний обсяг робіт" required></textarea>
+            </div>
+
+            <div class="input-group">
+                <textarea name="parts_used" placeholder="Використані матеріали" required></textarea>
+            </div>
+
+            <input type="hidden" name="problem_id" value="{{ problem_id }}">
+            
+            <button type="submit">Завершити</button>
+        </form>
+
+        {% if message %}
+            <h2 class="status-message">{{ message }}</h2>
+        {% endif %}
+    </main>
+
+</body>
+</html>

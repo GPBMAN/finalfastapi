@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem: {{ problem.title }}</title>
+    <!-- Google Font: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121316;           /* Background */
+            --card-bg: #1e2025;            /* Card / Container bg */
+            --input-bg: #16181d;           /* Box / Pre background */
+            --text-main: #e2e8f0;          /* Main light text */
+            --text-muted: #94a3b8;         /* Muted slate text */
+            --border-color: #2e3440;       /* Border color */
+            --accent-blue: #5c8ca8;        /* Toned-down cyan/blue */
+            --badge-bg: rgba(92, 140, 168, 0.15);
+            --badge-text: #5c8ca8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 680px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        .status-badge {
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.35rem 0.75rem;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            word-break: break-word;
+            margin-bottom: 1.25rem;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            margin-bottom: 1.25rem;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.01em;
+        }
+
+        .record-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .record-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .record-group h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        pre {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .card-header {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <!-- Problem Summary Card -->
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">Problem: {{ problem.title }}</h2>
+                <span class="status-badge">Status: {{ problem.status }}</span>
+            </div>
+
+            <p class="description">{{ problem.description }}</p>
+
+            {% if problem.image_url %}
+                <img src="static/{{ problem.image_url }}" alt="Problem Image" class="image-preview">
+            {% endif %}
+
+            <div class="card-footer">
+                <span>Created: {{ problem.date_created }}</span>
+            </div>
+        </section>
+
+        <!-- Service Record Card -->
+        {% if service_record %}
+        <section class="card">
+            <h3 class="section-title">Інформаційний талон</h3>
+
+            <div class="record-group">
+                <h4>Опис виконаної роботи:</h4>
+                <pre>{{ service_record.word_done }}</pre>
+            </div>
+
+            <div class="record-group">
+                <h4>Використані матеріали:</h4>
+                <pre>{{ service_record.parts_used }}</pre>
+            </div>
+
+            <div class="record-group">
+                <h4>Гарантійна інформація:</h4>
+                <pre>{{ service_record.warranty_info }}</pre>
+            </div>
+        </section>
+        {% endif %}
+    </main>
+
+</body>
+</html>

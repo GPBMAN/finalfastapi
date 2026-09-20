@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <!-- Google Font: Plus Jakarta Sans (similar to Google Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121316;           /* Light black (background) */
+            --card-bg: #1e2025;            /* Lighter black (card container) */
+            --text-main: #e2e8f0;          /* Main light text for contrast */
+            --text-muted: #94a3b8;         /* Muted slate text */
+            --border-color: #2e3440;       /* Dark border color */
+            --accent-blue: #5c8ca8;        /* Toned-down cyan/blue */
+            --accent-hover: #4b7893;       /* Hover state cyan/blue */
+            --error-bg: #3d1c1c;
+            --error-text: #f87171;
+            --error-border: rgba(248, 113, 113, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .error-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 440px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: left;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .exception-box {
+            background-color: var(--error-bg);
+            color: var(--error-text);
+            border: 1px solid var(--error-border);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.75rem;
+            word-break: break-word;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: var(--accent-blue);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .back-link:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .back-link:active {
+            transform: scale(0.99);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="error-container">
+        <h2>Error</h2>
+
+        <div class="exception-box">
+            <p>{{ exception }}</p>
+        </div>
+
+        <a href="javascript:history.back()" class="back-link">&larr; Go Back</a>
+    </main>
+
+</body>
+</html>

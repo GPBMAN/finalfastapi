@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мої незакриті запити</title>
+    <!-- Google Font: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121316;           /* Background */
+            --card-bg: #1e2025;            /* Container/Card bg */
+            --input-bg: #16181d;           /* Inner box background */
+            --text-main: #e2e8f0;          /* Main light text */
+            --text-muted: #94a3b8;         /* Muted slate text */
+            --border-color: #2e3440;       /* Dark border color */
+            --accent-blue: #5c8ca8;        /* Toned-down cyan/blue */
+            --accent-hover: #4b7893;       /* Hover state cyan/blue */
+            --badge-bg: rgba(92, 140, 168, 0.15);
+            --badge-text: #5c8ca8;
+            --danger-bg: rgba(248, 113, 113, 0.1);
+            --danger-text: #f87171;
+            --danger-border: rgba(248, 113, 113, 0.25);
+            --danger-hover: rgba(248, 113, 113, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.75rem;
+        }
+
+        .page-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        .badge-count {
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .problems-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .problem-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .problem-card:hover {
+            border-color: #3b4252;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .problem-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .problem-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .problem-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .problem-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .problem-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .btn-add {
+            padding: 0.55rem 1rem;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-add:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-add:active {
+            transform: scale(0.99);
+        }
+
+        .btn-close {
+            padding: 0.55rem 1rem;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--danger-text);
+            background-color: var(--danger-bg);
+            border: 1px solid var(--danger-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-close:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .btn-close:active {
+            transform: scale(0.99);
+        }
+
+        .empty-state {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            .problem-header {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .problem-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-add, .btn-close {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <div class="page-header">
+            <h2>Мої незакриті запити:</h2>
+            <span class="badge-count">{{ problems|length }} Active</span>
+        </div>
+
+        <div class="problems-list">
+            {% if problems %}
+                {% for i in problems %}
+                    <div class="problem-card">
+                        <div class="problem-header">
+                            <h4 class="problem-title">{{ i.title }}</h4>
+                            <small class="problem-date">{{ i.date_created }}</small>
+                        </div>
+                        
+                        <p class="problem-description">{{ i.description }}</p>
+
+                        <div class="problem-actions">
+                            <form action="add_answer" method="GET">
+                                <input type="hidden" name="problem_id" value="{{ i.id }}">
+                                <button type="submit" class="btn-add">Додати відповідь</button>
+                            </form>
+
+                            <form action="" method="POST">
+                                <input type="hidden" name="problem_id" value="{{ i.id }}">
+                                <button type="submit" class="btn-close">Закрити проблему</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <p>Незакритих запитів немає.</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+</body>
+</html>
